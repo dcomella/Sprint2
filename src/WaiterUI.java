@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -14,36 +15,28 @@ import java.awt.Color;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.JList;
 
 public class WaiterUI {
 
 	private JFrame frame;
+	
+	// Table Tab and Menu Map, these would normally be stored in a database, but using hash/maps for now
 	Map<String, JPanel> tableMap;
 	Map<String, ArrayList<String>> tabMap = new HashMap<String, ArrayList<String>>();
+	ArrayList<MenuItem> menu = new FileReader().getMenu();
 	
+	// Body Window
 	private final JPanel table_layout = new JPanel();
 	
-	
-	ArrayList<MenuItem> menu = new FileReader().getMenu();
-	ArrayList<MenuItem> apps = new ArrayList<MenuItem>();
-	ArrayList<MenuItem> saladsSoups = new ArrayList<MenuItem>();
-	ArrayList<MenuItem> entrees = new ArrayList<MenuItem>();
-	ArrayList<MenuItem> favs = new ArrayList<MenuItem>();
-	ArrayList<MenuItem> sandwhiches = new ArrayList<MenuItem>();
 
 	/**
 	 * Launch the application.
@@ -78,10 +71,7 @@ public class WaiterUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		/////////////////////////////////
-		/// Cards ///////////////////////
-		/////////////////////////////////
-
+		// Sidebar
 		
 		JPanel sidebar = new JPanel();
 		sidebar.setBackground(Color.GRAY);
@@ -90,7 +80,7 @@ public class WaiterUI {
 		sidebar.setLayout(new CardLayout(0, 0));
 		
 		
-		// Menu 1A
+		// Options menu when selected a table
 		JPanel tableOps = new JPanel();
 		tableOps.setBackground(Color.GRAY);
 		sidebar.add(tableOps, "tableOptions");
@@ -101,6 +91,8 @@ public class WaiterUI {
 		gbl_tableOps.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0};
 		tableOps.setLayout(gbl_tableOps);
 		
+		
+		// Title
 		JPanel opsTitle = new JPanel();
 		opsTitle.setBackground(Color.GRAY);
 		GridBagConstraints gbc_opsTitle = new GridBagConstraints();
@@ -110,13 +102,14 @@ public class WaiterUI {
 		gbc_opsTitle.gridy = 0;
 		tableOps.add(opsTitle, gbc_opsTitle);
 		
+		// Current Selected Table, Defaults to table 1A when opening
 		JLabel labelOpsCurrentTable = new JLabel("Table: 1A");
 		labelOpsCurrentTable.setHorizontalAlignment(SwingConstants.CENTER);
 		labelOpsCurrentTable.setFont(new Font("Tahoma", Font.BOLD, 50));
 		opsTitle.add(labelOpsCurrentTable);
 		
+		// The current Status container of the selected table
 		JPanel opsStatus = new JPanel();
-		
 		opsStatus.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		opsStatus.setBackground(Color.GRAY);
 		GridBagConstraints gbc_opsStatus = new GridBagConstraints();
@@ -132,6 +125,7 @@ public class WaiterUI {
 		gbl_opsStatus.rowWeights = new double[]{1.0};
 		opsStatus.setLayout(gbl_opsStatus);
 		
+		// The current status color
 		JPanel opsStatusColor = new JPanel();
 		opsStatusColor.setBackground(Color.GREEN);
 		GridBagConstraints gbc_opsStatusColor = new GridBagConstraints();
@@ -141,6 +135,7 @@ public class WaiterUI {
 		gbc_opsStatusColor.gridy = 0;
 		opsStatus.add(opsStatusColor, gbc_opsStatusColor);
 		
+		// The current status message container
 		JPanel opsStatusMsg = new JPanel();
 		opsStatusMsg.setBackground(Color.GRAY);
 		GridBagConstraints gbc_opsStatusMsg = new GridBagConstraints();
@@ -151,10 +146,12 @@ public class WaiterUI {
 		opsStatus.add(opsStatusMsg, gbc_opsStatusMsg);
 		opsStatusMsg.setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelOpsStatusMsg = new JLabel("Status: Dirty");
+		// The Current status message label, defaults to occupied 
+		JLabel labelOpsStatusMsg = new JLabel("Status: Occupied");
 		labelOpsStatusMsg.setFont(new Font("Tahoma", Font.BOLD, 24));
 		opsStatusMsg.add(labelOpsStatusMsg);
 		
+		// The current working tab of the selected table
 		JPanel opsCurrentTab = new JPanel();
 		opsCurrentTab.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_opsCurrentTab = new GridBagConstraints();
@@ -165,11 +162,13 @@ public class WaiterUI {
 		tableOps.add(opsCurrentTab, gbc_opsCurrentTab);
 		opsCurrentTab.setLayout(new BorderLayout(0, 0));
 		
+		// The list of items on the tab, defaults empty
 		JList<String> currentTabList = new JList<String>(new DefaultListModel<String>());
 		currentTabList.setBackground(Color.LIGHT_GRAY);
 		currentTabList.setFont(new Font("Tahoma", Font.BOLD, 20));
 		opsCurrentTab.add(currentTabList, BorderLayout.WEST);
 		
+		// The add to order button that will open the menu on the sidebar
 		JPanel opsAddOrder = new JPanel();
 		opsAddOrder.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		opsAddOrder.setBackground(Color.GRAY);
@@ -179,12 +178,13 @@ public class WaiterUI {
 		gbc_opsAddOrder.gridy = 3;
 		tableOps.add(opsAddOrder, gbc_opsAddOrder);
 		opsAddOrder.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel labelAddOrder1A = new JLabel("Add Order");
 		labelAddOrder1A.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelAddOrder1A.setHorizontalAlignment(SwingConstants.CENTER);
 		opsAddOrder.add(labelAddOrder1A);
 		
+		// Menu
 		JPanel panelMenu = new JPanel();
 		panelMenu.setBackground(Color.GRAY);
 		sidebar.add(panelMenu, "menuTab");
@@ -195,6 +195,7 @@ public class WaiterUI {
 		gbl_panelMenu.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0};
 		panelMenu.setLayout(gbl_panelMenu);
 		
+		// Title of the menu
 		JPanel opsTitle_1 = new JPanel();
 		opsTitle_1.setBackground(Color.GRAY);
 		GridBagConstraints gbc_opsTitle_1 = new GridBagConstraints();
@@ -209,6 +210,7 @@ public class WaiterUI {
 		lblMenu.setFont(new Font("Tahoma", Font.BOLD, 50));
 		opsTitle_1.add(lblMenu);
 		
+		// Category Selection container
 		JPanel panelCatSelect = new JPanel();
 		panelCatSelect.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panelCatSelect.setBackground(Color.GRAY);
@@ -225,6 +227,7 @@ public class WaiterUI {
 		gbl_panelCatSelect.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panelCatSelect.setLayout(gbl_panelCatSelect);
 		
+		// Select Appetizer category button
 		JPanel selectCatApps = new JPanel();
 		selectCatApps.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_selectCatApps = new GridBagConstraints();
@@ -240,6 +243,7 @@ public class WaiterUI {
 		labelApps.setHorizontalAlignment(SwingConstants.CENTER);
 		selectCatApps.add(labelApps);
 		
+		// Select Soups/Salads category button
 		JPanel selectCatSoupsSalads = new JPanel();
 		selectCatSoupsSalads.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_selectCatSoupsSalads = new GridBagConstraints();
@@ -255,6 +259,7 @@ public class WaiterUI {
 		labelSoupsSalads.setHorizontalAlignment(SwingConstants.CENTER);
 		selectCatSoupsSalads.add(labelSoupsSalads, BorderLayout.CENTER);
 		
+		// Select Entrees category button
 		JPanel selectCatEntrees = new JPanel();
 		selectCatEntrees.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_selectCatEntrees = new GridBagConstraints();
@@ -270,6 +275,7 @@ public class WaiterUI {
 		labelEntrees.setHorizontalAlignment(SwingConstants.CENTER);
 		selectCatEntrees.add(labelEntrees, BorderLayout.CENTER);
 		
+		// Select Favorites category button
 		JPanel SelectCatFavs = new JPanel();
 		SelectCatFavs.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_SelectCatFavs = new GridBagConstraints();
@@ -285,6 +291,7 @@ public class WaiterUI {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		SelectCatFavs.add(lblNewLabel_2, BorderLayout.CENTER);
 		
+		// Select Sandwhiches category button
 		JPanel SelectCatSandwhichs = new JPanel();
 		SelectCatSandwhichs.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_SelectCatSandwhichs = new GridBagConstraints();
@@ -300,6 +307,7 @@ public class WaiterUI {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		SelectCatSandwhichs.add(lblNewLabel_3, BorderLayout.CENTER);
 		
+		// Select The current selected category container
 		JPanel menuCurrentCat = new JPanel();
 		menuCurrentCat.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints gbc_menuCurrentCat = new GridBagConstraints();
@@ -310,8 +318,11 @@ public class WaiterUI {
 		panelMenu.add(menuCurrentCat, gbc_menuCurrentCat);
 		menuCurrentCat.setLayout(new CardLayout(0, 0));
 		
+		// Menu Category Appetizer
 		JPanel catApps = new JPanel();
 		catApps.setBackground(Color.LIGHT_GRAY);
+		
+		// Uses cardlayout to swap between different categories
 		menuCurrentCat.add(catApps, "menu_APPS");
 		catApps.setLayout(new BorderLayout(0, 0));
 		
@@ -324,6 +335,7 @@ public class WaiterUI {
 		menuListApps.setBackground(Color.LIGHT_GRAY);
 		catApps.add(menuListApps, BorderLayout.CENTER);
 		
+		// Menu Category Soups/Salads
 		JPanel catSS = new JPanel();
 		catSS.setBackground(Color.LIGHT_GRAY);
 		menuCurrentCat.add(catSS, "menu_SS");
@@ -340,6 +352,7 @@ public class WaiterUI {
 		menuListSS.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		catSS.add(menuListSS, BorderLayout.CENTER);
 		
+		// Menu Category Entrees
 		JPanel catEN = new JPanel();
 		catEN.setBackground(Color.LIGHT_GRAY);
 		menuCurrentCat.add(catEN, "menu_EN");
@@ -355,6 +368,7 @@ public class WaiterUI {
 		menuListEN.setBackground(Color.LIGHT_GRAY);
 		catEN.add(menuListEN, BorderLayout.CENTER);
 		
+		// Menu Category Favorites
 		JPanel catFAVS = new JPanel();
 		catFAVS.setBackground(Color.LIGHT_GRAY);
 		menuCurrentCat.add(catFAVS, "menu_FAVS");
@@ -371,6 +385,7 @@ public class WaiterUI {
 		menuListFAVS.setBackground(Color.LIGHT_GRAY);
 		catFAVS.add(menuListFAVS, BorderLayout.CENTER);
 		
+		// Menu Category Sandwhiches
 		JPanel catSW = new JPanel();
 		catSW.setBackground(Color.LIGHT_GRAY);
 		menuCurrentCat.add(catSW, "menu_SW");
@@ -391,6 +406,7 @@ public class WaiterUI {
 		/////////////////////////////////
 		
 	
+		// The header, that displays the current users name, id and current time		
 		
 		JPanel header = new JPanel();
 		header.setBackground(Color.LIGHT_GRAY);
@@ -403,7 +419,9 @@ public class WaiterUI {
 		header.add(panelName);
 		panelName.setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelPanelName = new JLabel(" Name: Rosa Smith");
+		// Current users name, hardcoded Derek's in
+		JLabel labelPanelName = new JLabel(" Name: Derek Comella");
+		// TO ADD: Get current users name function...
 		labelPanelName.setHorizontalAlignment(SwingConstants.CENTER);
 		labelPanelName.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelName.add(labelPanelName);
@@ -413,7 +431,8 @@ public class WaiterUI {
 		header.add(paneIID);
 		paneIID.setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelPanelID = new JLabel("ID: 01");
+		JLabel labelPanelID = new JLabel("ID: 0243563");
+		// TO ADD: Get current users id function...
 		labelPanelID.setHorizontalAlignment(SwingConstants.CENTER);
 		labelPanelID.setFont(new Font("Tahoma", Font.BOLD, 18));
 		paneIID.add(labelPanelID);
@@ -423,7 +442,10 @@ public class WaiterUI {
 		header.add(panelTime);
 		panelTime.setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelPanelTime = new JLabel("3:52PM 4/30/2021");
+		// Hardcoded time in now
+		JLabel labelPanelTime = new JLabel("4/31/21 12:41AM");
+		// TO ADD GET CURRENT TIME FUNCTION
+		
 		labelPanelTime.setHorizontalAlignment(SwingConstants.CENTER);
 		labelPanelTime.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelTime.add(labelPanelTime);
@@ -436,6 +458,8 @@ public class WaiterUI {
 		gbl_table_layout.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0};
 		table_layout.setLayout(gbl_table_layout);
 		
+		// Table Layout, i broke it up into 6 rows, 5 table rows, and the last row is the key
+		// each row is broken up into 7 columns, left most column is a key, then the remaining 6 are tables
 		JPanel row1 = new JPanel();
 		GridBagConstraints gbc_row1 = new GridBagConstraints();
 		gbc_row1.fill = GridBagConstraints.BOTH;
@@ -464,13 +488,14 @@ public class WaiterUI {
 		key1.add(labelKey1, BorderLayout.CENTER);
 		
 		JPanel table1A = new JPanel();
+		// Each table has a mouse listener, that listens to when u click on it, it then calls the function to update the sidebar to the proper information
 		table1A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				updateSideBar(table1A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
-		table1A.setBackground(Color.GREEN);
+		table1A.setBackground(Color.YELLOW);
 		table1A.setLayout(null);
 		GridBagConstraints gbc_table1A = new GridBagConstraints();
 		gbc_table1A.fill = GridBagConstraints.BOTH;
@@ -486,7 +511,7 @@ public class WaiterUI {
 				updateSideBar(table1B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
-		table1B.setBackground(Color.GREEN);
+		table1B.setBackground(Color.RED);
 		table1B.setLayout(null);
 		GridBagConstraints gbc_table1B = new GridBagConstraints();
 		gbc_table1B.fill = GridBagConstraints.BOTH;
@@ -512,7 +537,7 @@ public class WaiterUI {
 		row1.add(table1C, gbc_table1C);
 		
 		JPanel table1D = new JPanel();
-		table1D.setBackground(Color.GREEN);
+		table1D.setBackground(Color.RED);
 		table1D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -737,7 +762,7 @@ public class WaiterUI {
 			}
 		});
 		table3B.setLayout(null);
-		table3B.setBackground(Color.GREEN);
+		table3B.setBackground(Color.RED);
 		GridBagConstraints gbc_table3B = new GridBagConstraints();
 		gbc_table3B.fill = GridBagConstraints.BOTH;
 		gbc_table3B.insets = new Insets(33, 25, 33, 25);
@@ -769,7 +794,7 @@ public class WaiterUI {
 			}
 		});
 		table3D.setLayout(null);
-		table3D.setBackground(Color.GREEN);
+		table3D.setBackground(Color.RED);
 		GridBagConstraints gbc_table3D = new GridBagConstraints();
 		gbc_table3D.fill = GridBagConstraints.BOTH;
 		gbc_table3D.insets = new Insets(33, 25, 33, 25);
@@ -844,7 +869,7 @@ public class WaiterUI {
 			}
 		});
 		table4A.setLayout(null);
-		table4A.setBackground(Color.GREEN);
+		table4A.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_table4A = new GridBagConstraints();
 		gbc_table4A.fill = GridBagConstraints.BOTH;
 		gbc_table4A.insets = new Insets(33, 25, 33, 25);
@@ -860,7 +885,7 @@ public class WaiterUI {
 			}
 		});
 		table4B.setLayout(null);
-		table4B.setBackground(Color.GREEN);
+		table4B.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_table4B = new GridBagConstraints();
 		gbc_table4B.fill = GridBagConstraints.BOTH;
 		gbc_table4B.insets = new Insets(33, 25, 33, 25);
@@ -967,7 +992,7 @@ public class WaiterUI {
 			}
 		});
 		table5A.setLayout(null);
-		table5A.setBackground(Color.GREEN);
+		table5A.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_table5A = new GridBagConstraints();
 		gbc_table5A.fill = GridBagConstraints.BOTH;
 		gbc_table5A.insets = new Insets(33, 25, 33, 25);
@@ -983,7 +1008,7 @@ public class WaiterUI {
 			}
 		});
 		table5B.setLayout(null);
-		table5B.setBackground(Color.GREEN);
+		table5B.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_table5B = new GridBagConstraints();
 		gbc_table5B.fill = GridBagConstraints.BOTH;
 		gbc_table5B.insets = new Insets(33, 25, 33, 25);
@@ -1136,7 +1161,7 @@ public class WaiterUI {
 		
 		
 		
-
+		// When clicking ADD ORDER button, meun pops up
 		opsAddOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1149,7 +1174,7 @@ public class WaiterUI {
 		
 		//
 		
-
+		// Button listeners to detect and switch categories on the menu
 		selectCatApps.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1193,7 +1218,7 @@ public class WaiterUI {
 		
 		//
 		
-		// Cycles Specific Table Status... > Green > Yellow > Red >	
+		// Table map, soley for code to easily reference the string to the table object to edit its data like status, color, and current working tab.
 		
 		tableMap = Stream.of(new Object[][] { 
 		     { "1A", table1A }, 
@@ -1231,6 +1256,7 @@ public class WaiterUI {
 		opsStatus.addMouseListener(new MouseAdapter() {
 			
 			// Checks when opsStatus is clicked
+			// clicking the status button on the sidebar will cycle thru the 3 status's of the current selected table
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1238,6 +1264,7 @@ public class WaiterUI {
 				
 				String strTable = labelOpsCurrentTable.getText().replace("Table: ", "");
 				
+				// Cycles Specific Table Status... > Green > Yellow > Red >	
 				if(currentStatus == Color.GREEN) {
 					
 					tableMap.get(strTable).setBackground(Color.YELLOW);
@@ -1259,7 +1286,7 @@ public class WaiterUI {
 			}
 		});
 		
-		
+		// runs once when launched, reads the menu.yml file and populates the menu and its categories
 		getMenuItems(menuListApps, menuListSS, menuListEN, menuListFAVS, menuListSW);
 		
 		JPanel addSW = new JPanel();
@@ -1350,12 +1377,22 @@ public class WaiterUI {
 		
 	}
 	
+	// whenever the add to tab button is pressed, adds the tab to the table
+	// idealy this would be stored in a database, using hashmaps for now
 	public void addToTab(JList<String> list, JLabel labelOpsCurrentTable) {
 		String item = (String) list.getSelectedValue();
+		
+		// gets current selected table
 		String currentTable = labelOpsCurrentTable.getText().replace("Table: ", "").trim();
+		
+		// Prints out what its adding to console
 		System.out.println("Table: " + currentTable);				
 		System.out.println("Item to add: " + item);
+		
+		// gets current tab of the selected table
 		ArrayList<String> currentTab = tabMap.get(currentTable);
+		
+		// Adds item to the tab, if a tab doesnt exist, creates one then adds the item
 		if(currentTab == null) {
 			currentTab = new ArrayList<String>();
 			currentTab.add(item);
@@ -1363,19 +1400,22 @@ public class WaiterUI {
 		} else {
 			currentTab.add(item);
 		}
-		System.out.println("TabMap: " + tabMap);
 	}
 	
+	// update side bar function, called when pressing on a table
 	@SuppressWarnings("unchecked")
 	public void updateSideBar(JPanel table, JPanel opsStatusColor, JLabel labelOpsStatusMsg, JLabel labelOpsCurrentTable, JList<String> tabList, JPanel sidebar){
 		Color currentStatus = table.getBackground();
-
+		
+		// uses cardlayout, and shows the table options card
 	    CardLayout cl = (CardLayout)(sidebar.getLayout());
 	    cl.show(sidebar, "tableOptions");
 		
+	    // sets the selected table to the sidebar
 		String selectedTable = getTableLabel(table);
 		labelOpsCurrentTable.setText("Table: " + selectedTable);
-		 
+		
+		// copys the status of the selected to table to the sidebars status
 		if(currentStatus == Color.GREEN) {
 			opsStatusColor.setBackground(Color.GREEN);
 			labelOpsStatusMsg.setText("Status: Ready");
@@ -1391,10 +1431,10 @@ public class WaiterUI {
 			labelOpsStatusMsg.setText("Status: Occupied");			
 		}
 		
+		// makes sure the tab is cleared then populates it with the tables tab (if it exists)
 		((DefaultListModel<String>)tabList.getModel()).removeAllElements();
 		
 		System.out.println("Selected: '" + selectedTable + "'");
-		System.out.println("TabMap: " + tabMap);
 		if(tabMap.get(selectedTable) == null) return;
 		System.out.println("Tab: '" + tabMap.get(selectedTable) + "'");
 		for(String item : tabMap.get(selectedTable)) {
@@ -1403,6 +1443,7 @@ public class WaiterUI {
 		
 	}
 	
+	// get the label from the table object
 	public String getTableLabel(JPanel table) {
 		
 	    for(String key : tableMap.keySet()) {
@@ -1413,12 +1454,11 @@ public class WaiterUI {
 	    return null;
 	}
 
-	
+	// loops thru the menu, and populates each category with the items that are in that specific category
 	@SuppressWarnings("unchecked")
 	public void getMenuItems(JList listApps, JList listSS, JList listEN, JList listFAVS, JList listSW) {
 		for(MenuItem item : menu) {
 			if(item.getID().startsWith("AP-")) {
-				apps.add(item);
 				((DefaultListModel<String>)listApps.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
 			}
 			if(item.getID().startsWith("SS-")) {
