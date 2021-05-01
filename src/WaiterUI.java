@@ -34,6 +34,14 @@ public class WaiterUI {
 	Map<String, JPanel> tableMap;
 	
 	private final JPanel table_layout = new JPanel();
+	
+	
+	ArrayList<MenuItem> menu = new FileReader().getMenu();
+	ArrayList<MenuItem> apps = new ArrayList<MenuItem>();
+	ArrayList<MenuItem> saladsSoups = new ArrayList<MenuItem>();
+	ArrayList<MenuItem> entrees = new ArrayList<MenuItem>();
+	ArrayList<MenuItem> favs = new ArrayList<MenuItem>();
+	ArrayList<MenuItem> sandwhiches = new ArrayList<MenuItem>();
 
 	/**
 	 * Launch the application.
@@ -82,7 +90,7 @@ public class WaiterUI {
 		// Menu 1A
 		JPanel tableOps = new JPanel();
 		tableOps.setBackground(Color.GRAY);
-		sidebar.add(tableOps, "1A");
+		sidebar.add(tableOps, "tableOptions");
 		GridBagLayout gbl_tableOps = new GridBagLayout();
 		gbl_tableOps.columnWidths = new int[]{311, 0};
 		gbl_tableOps.rowHeights = new int[] {80, 65, 500, 65};
@@ -174,6 +182,207 @@ public class WaiterUI {
 		labelAddOrder1A.setHorizontalAlignment(SwingConstants.CENTER);
 		opsAddOrder.add(labelAddOrder1A);
 		
+		JPanel panelMenu = new JPanel();
+		panelMenu.setBackground(Color.GRAY);
+		sidebar.add(panelMenu, "menuTab");
+		GridBagLayout gbl_panelMenu = new GridBagLayout();
+		gbl_panelMenu.columnWidths = new int[]{311, 0};
+		gbl_panelMenu.rowHeights = new int[] {95, 95, 600, 30};
+		gbl_panelMenu.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panelMenu.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0};
+		panelMenu.setLayout(gbl_panelMenu);
+		
+		JPanel opsTitle_1 = new JPanel();
+		opsTitle_1.setBackground(Color.GRAY);
+		GridBagConstraints gbc_opsTitle_1 = new GridBagConstraints();
+		gbc_opsTitle_1.fill = GridBagConstraints.BOTH;
+		gbc_opsTitle_1.insets = new Insets(0, 0, 5, 0);
+		gbc_opsTitle_1.gridx = 0;
+		gbc_opsTitle_1.gridy = 0;
+		panelMenu.add(opsTitle_1, gbc_opsTitle_1);
+		
+		JLabel lblMenu = new JLabel("Menu");
+		lblMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMenu.setFont(new Font("Tahoma", Font.BOLD, 50));
+		opsTitle_1.add(lblMenu);
+		
+		JPanel panelCatSelect = new JPanel();
+		panelCatSelect.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panelCatSelect.setBackground(Color.GRAY);
+		GridBagConstraints gbc_panelCatSelect = new GridBagConstraints();
+		gbc_panelCatSelect.fill = GridBagConstraints.BOTH;
+		gbc_panelCatSelect.insets = new Insets(0, 0, 5, 0);
+		gbc_panelCatSelect.gridx = 0;
+		gbc_panelCatSelect.gridy = 1;
+		panelMenu.add(panelCatSelect, gbc_panelCatSelect);
+		GridBagLayout gbl_panelCatSelect = new GridBagLayout();
+		gbl_panelCatSelect.columnWidths = new int[] {62, 62, 62, 62, 62};
+		gbl_panelCatSelect.rowHeights = new int[]{65, 0, 0};
+		gbl_panelCatSelect.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0};
+		gbl_panelCatSelect.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		panelCatSelect.setLayout(gbl_panelCatSelect);
+		
+		JPanel selectCatApps = new JPanel();
+		selectCatApps.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_selectCatApps = new GridBagConstraints();
+		gbc_selectCatApps.fill = GridBagConstraints.BOTH;
+		gbc_selectCatApps.insets = new Insets(5, 5, 5, 5);
+		gbc_selectCatApps.gridx = 0;
+		gbc_selectCatApps.gridy = 0;
+		panelCatSelect.add(selectCatApps, gbc_selectCatApps);
+		selectCatApps.setLayout(new BorderLayout(0, 0));
+		
+		JLabel labelApps = new JLabel("APPS");
+		labelApps.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelApps.setHorizontalAlignment(SwingConstants.CENTER);
+		selectCatApps.add(labelApps);
+		
+		JPanel selectCatSoupsSalads = new JPanel();
+		selectCatSoupsSalads.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_selectCatSoupsSalads = new GridBagConstraints();
+		gbc_selectCatSoupsSalads.insets = new Insets(5, 5, 5, 5);
+		gbc_selectCatSoupsSalads.fill = GridBagConstraints.BOTH;
+		gbc_selectCatSoupsSalads.gridx = 1;
+		gbc_selectCatSoupsSalads.gridy = 0;
+		panelCatSelect.add(selectCatSoupsSalads, gbc_selectCatSoupsSalads);
+		selectCatSoupsSalads.setLayout(new BorderLayout(0, 0));
+		
+		JLabel labelSoupsSalads = new JLabel("SS");
+		labelSoupsSalads.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelSoupsSalads.setHorizontalAlignment(SwingConstants.CENTER);
+		selectCatSoupsSalads.add(labelSoupsSalads, BorderLayout.CENTER);
+		
+		JPanel selectCatEntrees = new JPanel();
+		selectCatEntrees.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_selectCatEntrees = new GridBagConstraints();
+		gbc_selectCatEntrees.insets = new Insets(5, 5, 5, 5);
+		gbc_selectCatEntrees.fill = GridBagConstraints.BOTH;
+		gbc_selectCatEntrees.gridx = 2;
+		gbc_selectCatEntrees.gridy = 0;
+		panelCatSelect.add(selectCatEntrees, gbc_selectCatEntrees);
+		selectCatEntrees.setLayout(new BorderLayout(0, 0));
+		
+		JLabel labelEntrees = new JLabel("EN");
+		labelEntrees.setFont(new Font("Tahoma", Font.BOLD, 14));
+		labelEntrees.setHorizontalAlignment(SwingConstants.CENTER);
+		selectCatEntrees.add(labelEntrees, BorderLayout.CENTER);
+		
+		JPanel SelectCatFavs = new JPanel();
+		SelectCatFavs.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_SelectCatFavs = new GridBagConstraints();
+		gbc_SelectCatFavs.insets = new Insets(5, 5, 5, 5);
+		gbc_SelectCatFavs.fill = GridBagConstraints.BOTH;
+		gbc_SelectCatFavs.gridx = 3;
+		gbc_SelectCatFavs.gridy = 0;
+		panelCatSelect.add(SelectCatFavs, gbc_SelectCatFavs);
+		SelectCatFavs.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_2 = new JLabel("FAVS");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		SelectCatFavs.add(lblNewLabel_2, BorderLayout.CENTER);
+		
+		JPanel SelectCatSandwhichs = new JPanel();
+		SelectCatSandwhichs.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_SelectCatSandwhichs = new GridBagConstraints();
+		gbc_SelectCatSandwhichs.insets = new Insets(5, 5, 5, 5);
+		gbc_SelectCatSandwhichs.fill = GridBagConstraints.BOTH;
+		gbc_SelectCatSandwhichs.gridx = 4;
+		gbc_SelectCatSandwhichs.gridy = 0;
+		panelCatSelect.add(SelectCatSandwhichs, gbc_SelectCatSandwhichs);
+		SelectCatSandwhichs.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("SW");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		SelectCatSandwhichs.add(lblNewLabel_3, BorderLayout.CENTER);
+		
+		JPanel menuCurrentCat = new JPanel();
+		menuCurrentCat.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_menuCurrentCat = new GridBagConstraints();
+		gbc_menuCurrentCat.fill = GridBagConstraints.BOTH;
+		gbc_menuCurrentCat.insets = new Insets(12, 12, 12, 12);
+		gbc_menuCurrentCat.gridx = 0;
+		gbc_menuCurrentCat.gridy = 2;
+		panelMenu.add(menuCurrentCat, gbc_menuCurrentCat);
+		menuCurrentCat.setLayout(new CardLayout(0, 0));
+		
+		JPanel catApps = new JPanel();
+		catApps.setBackground(Color.LIGHT_GRAY);
+		menuCurrentCat.add(catApps, "menu_APPS");
+		catApps.setLayout(new BorderLayout(0, 0));
+		
+		JLabel titleCatApps = new JLabel("Appetizers");
+		titleCatApps.setHorizontalAlignment(SwingConstants.CENTER);
+		titleCatApps.setFont(new Font("Tahoma", Font.BOLD, 20));
+		catApps.add(titleCatApps, BorderLayout.NORTH);
+		
+		JList<String> menuListApps = new JList<String>(new DefaultListModel<String>());
+		menuListApps.setBackground(Color.LIGHT_GRAY);
+		catApps.add(menuListApps, BorderLayout.CENTER);
+		
+		JPanel catSS = new JPanel();
+		catSS.setBackground(Color.LIGHT_GRAY);
+		menuCurrentCat.add(catSS, "menu_SS");
+		catSS.setLayout(new BorderLayout(0, 0));
+		
+		JLabel titleCatSS = new JLabel("Soups/Salads");
+		titleCatSS.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleCatSS.setHorizontalAlignment(SwingConstants.CENTER);
+		catSS.add(titleCatSS, BorderLayout.NORTH);
+		
+
+		JList<String> menuListSS = new JList<String>(new DefaultListModel<String>());
+		menuListSS.setBackground(Color.LIGHT_GRAY);
+		menuListSS.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		catSS.add(menuListSS, BorderLayout.CENTER);
+		
+		JPanel catEN = new JPanel();
+		catEN.setBackground(Color.LIGHT_GRAY);
+		menuCurrentCat.add(catEN, "menu_EN");
+		catEN.setLayout(new BorderLayout(0, 0));
+		
+		JLabel titleCatEn = new JLabel("Entrees");
+		titleCatEn.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleCatEn.setHorizontalAlignment(SwingConstants.CENTER);
+		catEN.add(titleCatEn, BorderLayout.NORTH);
+		
+
+		JList<String> menuListEN = new JList<String>(new DefaultListModel<String>());
+		menuListEN.setBackground(Color.LIGHT_GRAY);
+		catEN.add(menuListEN, BorderLayout.CENTER);
+		
+		JPanel catFAVS = new JPanel();
+		catFAVS.setBackground(Color.LIGHT_GRAY);
+		menuCurrentCat.add(catFAVS, "menu_FAVS");
+		catFAVS.setLayout(new BorderLayout(0, 0));
+		
+		JLabel titleCatFAVS = new JLabel("Favorites");
+		titleCatFAVS.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleCatFAVS.setHorizontalAlignment(SwingConstants.CENTER);
+		catFAVS.add(titleCatFAVS, BorderLayout.NORTH);
+		
+
+		JList<String> menuListFAVS = new JList<String>(new DefaultListModel<String>());
+		menuListFAVS.setFont(new Font("Tahoma", Font.BOLD, 20));
+		menuListFAVS.setBackground(Color.LIGHT_GRAY);
+		catFAVS.add(menuListFAVS, BorderLayout.CENTER);
+		
+		JPanel catSW = new JPanel();
+		catSW.setBackground(Color.LIGHT_GRAY);
+		menuCurrentCat.add(catSW, "menu_SW");
+		catSW.setLayout(new BorderLayout(0, 0));
+		
+		JLabel titleCatSW = new JLabel("Sandwhiches");
+		titleCatSW.setFont(new Font("Tahoma", Font.BOLD, 20));
+		titleCatSW.setHorizontalAlignment(SwingConstants.CENTER);
+		catSW.add(titleCatSW, BorderLayout.NORTH);
+		
+
+		JList<String> menuListSW = new JList<String>(new DefaultListModel<String>());
+		menuListSW.setBackground(Color.LIGHT_GRAY);
+		catSW.add(menuListSW, BorderLayout.CENTER);
+		
 		/////////////////////////////////
 		/////////////////////////////////
 		/////////////////////////////////
@@ -255,7 +464,7 @@ public class WaiterUI {
 		table1A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1A.setBackground(Color.GREEN);
@@ -271,7 +480,7 @@ public class WaiterUI {
 		table1B.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1B.setBackground(Color.GREEN);
@@ -287,7 +496,7 @@ public class WaiterUI {
 		table1C.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1C.setBackground(Color.GREEN);
@@ -304,7 +513,7 @@ public class WaiterUI {
 		table1D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1D.setLayout(null);
@@ -320,7 +529,7 @@ public class WaiterUI {
 		table1E.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1E.setLayout(null);
@@ -336,7 +545,7 @@ public class WaiterUI {
 		table1F.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table1F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table1F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table1F.setLayout(null);
@@ -382,7 +591,7 @@ public class WaiterUI {
 		table2A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2A.setLayout(null);
@@ -398,7 +607,7 @@ public class WaiterUI {
 		table2B.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2B.setLayout(null);
@@ -414,7 +623,7 @@ public class WaiterUI {
 		table2C.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2C.setLayout(null);
@@ -430,7 +639,7 @@ public class WaiterUI {
 		table2D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2D.setLayout(null);
@@ -446,7 +655,7 @@ public class WaiterUI {
 		table2E.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2E.setLayout(null);
@@ -462,7 +671,7 @@ public class WaiterUI {
 		table2F.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table2F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table2F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table2F.setLayout(null);
@@ -505,7 +714,7 @@ public class WaiterUI {
 		table3A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3A.setLayout(null);
@@ -521,7 +730,7 @@ public class WaiterUI {
 		table3B.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3B.setLayout(null);
@@ -537,7 +746,7 @@ public class WaiterUI {
 		table3C.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3C.setLayout(null);
@@ -553,7 +762,7 @@ public class WaiterUI {
 		table3D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3D.setLayout(null);
@@ -569,7 +778,7 @@ public class WaiterUI {
 		table3E.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3E.setLayout(null);
@@ -585,7 +794,7 @@ public class WaiterUI {
 		table3F.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table3F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table3F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table3F.setLayout(null);
@@ -628,7 +837,7 @@ public class WaiterUI {
 		table4A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4A.setLayout(null);
@@ -644,7 +853,7 @@ public class WaiterUI {
 		table4B.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4B.setLayout(null);
@@ -660,7 +869,7 @@ public class WaiterUI {
 		table4C.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4C.setLayout(null);
@@ -676,7 +885,7 @@ public class WaiterUI {
 		table4D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4D.setLayout(null);
@@ -692,7 +901,7 @@ public class WaiterUI {
 		table4E.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4E.setLayout(null);
@@ -708,7 +917,7 @@ public class WaiterUI {
 		table4F.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table4F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table4F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table4F.setLayout(null);
@@ -751,7 +960,7 @@ public class WaiterUI {
 		table5A.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5A, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5A.setLayout(null);
@@ -767,7 +976,7 @@ public class WaiterUI {
 		table5B.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5B, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5B.setLayout(null);
@@ -783,7 +992,7 @@ public class WaiterUI {
 		table5C.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5C, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5C.setLayout(null);
@@ -799,7 +1008,7 @@ public class WaiterUI {
 		table5D.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5D, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5D.setLayout(null);
@@ -815,7 +1024,7 @@ public class WaiterUI {
 		table5E.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5E, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5E.setLayout(null);
@@ -831,7 +1040,7 @@ public class WaiterUI {
 		table5F.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				updateSideBar(table5F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList);
+				updateSideBar(table5F, opsStatusColor, labelOpsStatusMsg, labelOpsCurrentTable, currentTabList, sidebar);
 			}
 		});
 		table5F.setLayout(null);
@@ -923,6 +1132,62 @@ public class WaiterUI {
 		row6.add(labelKeyF, gbc_labelKeyF);
 		
 		
+		
+
+		opsAddOrder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(sidebar.getLayout());
+			    cl.show(sidebar, "menuTab");
+			}
+		});
+		
+		
+		
+		//
+		
+
+		selectCatApps.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(menuCurrentCat.getLayout());
+			    cl.show(menuCurrentCat, "menu_APPS");
+			}
+		});
+
+		selectCatSoupsSalads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(menuCurrentCat.getLayout());
+			    cl.show(menuCurrentCat, "menu_SS");
+			}
+		});
+		
+		selectCatEntrees.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(menuCurrentCat.getLayout());
+			    cl.show(menuCurrentCat, "menu_EN");
+			}
+		});
+		
+		SelectCatFavs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(menuCurrentCat.getLayout());
+			    cl.show(menuCurrentCat, "menu_FAVS");
+			}
+		});
+		
+		SelectCatSandwhichs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    CardLayout cl = (CardLayout)(menuCurrentCat.getLayout());
+			    cl.show(menuCurrentCat, "menu_SW");
+			}
+		});
+		
+		
 		//
 		
 		// Cycles Specific Table Status... > Green > Yellow > Red >	
@@ -991,41 +1256,17 @@ public class WaiterUI {
 			}
 		});
 		
-		ArrayList<MenuItem> menu = new FileReader().getMenu();
 		
-		ArrayList<MenuItem> apps = new ArrayList<MenuItem>();
-		ArrayList<MenuItem> saladsSoups = new ArrayList<MenuItem>();
-		ArrayList<MenuItem> entrees = new ArrayList<MenuItem>();
-		ArrayList<MenuItem> favs = new ArrayList<MenuItem>();
-		ArrayList<MenuItem> sandwhiches = new ArrayList<MenuItem>();
-		for(MenuItem item : menu) {
-			if(item.getID().startsWith("AP-")) {
-				apps.add(item);
-			}
-			if(item.getID().startsWith("SS-")) {
-				saladsSoups.add(item);
-			}
-			if(item.getID().startsWith("EN-")) {
-				entrees.add(item);
-			}
-			if(item.getID().startsWith("FE-")) {
-				favs.add(item);
-			}
-			if(item.getID().startsWith("SW-")) {
-				sandwhiches.add(item);
-			}
-		}
-		System.out.println("Appetizers: " + apps);
-		System.out.println("Soups/Salads: " + apps);
-		System.out.println("Entrees: " + apps);
-		System.out.println("Fav Entrees: " + apps);
-		System.out.println("Sandwhiches: " + apps);
+		getMenuItems(menuListApps, menuListSS, menuListEN, menuListFAVS, menuListSW);
 		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void updateSideBar(JPanel table, JPanel opsStatusColor, JLabel labelOpsStatusMsg, JLabel labelOpsCurrentTable, JList<String> tabList){
+	public void updateSideBar(JPanel table, JPanel opsStatusColor, JLabel labelOpsStatusMsg, JLabel labelOpsCurrentTable, JList<String> tabList, JPanel sidebar){
 		Color currentStatus = table.getBackground();
+
+	    CardLayout cl = (CardLayout)(sidebar.getLayout());
+	    cl.show(sidebar, "tableOptions");
 		
 		String selectedTable = getTableLabel(table);
 		labelOpsCurrentTable.setText("Table: " + selectedTable);
@@ -1084,7 +1325,26 @@ public class WaiterUI {
 		return tab;
 	}
 	
-	public void getMenuItems() {
-		
+	@SuppressWarnings("unchecked")
+	public void getMenuItems(JList listApps, JList listSS, JList listEN, JList listFAVS, JList listSW) {
+		for(MenuItem item : menu) {
+			if(item.getID().startsWith("AP-")) {
+				apps.add(item);
+				((DefaultListModel<String>)listApps.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
+			}
+			if(item.getID().startsWith("SS-")) {
+				((DefaultListModel<String>)listSS.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
+			}
+			if(item.getID().startsWith("EN-")) {
+				((DefaultListModel<String>)listEN.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
+			}
+			if(item.getID().startsWith("FEN-")) {
+				System.out.println(item);
+				((DefaultListModel<String>)listFAVS.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
+			}
+			if(item.getID().startsWith("SW-")) {
+				((DefaultListModel<String>)listSW.getModel()).addElement(" - $" + item.getCost() + "0 : " + item.getName());
+			}
+		}
 	}
 }
