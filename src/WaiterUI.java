@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class WaiterUI {
 
 	private JFrame frame;
 	Map<String, JPanel> tableMap;
+	Map<String, ArrayList<String>> tabMap = new HashMap<String, ArrayList<String>>();
 	
 	private final JPanel table_layout = new JPanel();
 	
@@ -69,6 +71,7 @@ public class WaiterUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1200, 800);
@@ -334,7 +337,7 @@ public class WaiterUI {
 
 		JList<String> menuListSS = new JList<String>(new DefaultListModel<String>());
 		menuListSS.setBackground(Color.LIGHT_GRAY);
-		menuListSS.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		menuListSS.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		catSS.add(menuListSS, BorderLayout.CENTER);
 		
 		JPanel catEN = new JPanel();
@@ -364,7 +367,7 @@ public class WaiterUI {
 		
 
 		JList<String> menuListFAVS = new JList<String>(new DefaultListModel<String>());
-		menuListFAVS.setFont(new Font("Tahoma", Font.BOLD, 20));
+		menuListFAVS.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		menuListFAVS.setBackground(Color.LIGHT_GRAY);
 		catFAVS.add(menuListFAVS, BorderLayout.CENTER);
 		
@@ -1224,7 +1227,7 @@ public class WaiterUI {
 		     { "5E", table5E }, 
 		     { "5F", table5F },
 		 }).collect(Collectors.toMap(data -> (String) data[0], data -> (JPanel) data[1]));
-		
+			
 		opsStatus.addMouseListener(new MouseAdapter() {
 			
 			// Checks when opsStatus is clicked
@@ -1259,6 +1262,108 @@ public class WaiterUI {
 		
 		getMenuItems(menuListApps, menuListSS, menuListEN, menuListFAVS, menuListSW);
 		
+		JPanel addSW = new JPanel();
+		addSW.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addToTab(menuListSW, labelOpsCurrentTable);
+			}
+		});
+		addSW.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		addSW.setBackground(Color.LIGHT_GRAY);
+		catSW.add(addSW, BorderLayout.SOUTH);
+		addSW.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("Add to Order");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		addSW.add(lblNewLabel_1, BorderLayout.NORTH);
+		
+		JPanel addFAVS = new JPanel();
+		addFAVS.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addToTab(menuListFAVS, labelOpsCurrentTable);
+			}
+		});
+		addFAVS.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		addFAVS.setBackground(Color.LIGHT_GRAY);
+		catFAVS.add(addFAVS, BorderLayout.SOUTH);
+		addFAVS.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_4 = new JLabel("Add to Order");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		addFAVS.add(lblNewLabel_4, BorderLayout.NORTH);
+		
+		JPanel addEN = new JPanel();
+		addEN.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addToTab(menuListEN, labelOpsCurrentTable);
+			}
+		});
+		addEN.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		addEN.setBackground(Color.LIGHT_GRAY);
+		catEN.add(addEN, BorderLayout.SOUTH);
+		addEN.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_5 = new JLabel("Add to Order");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 20));
+		addEN.add(lblNewLabel_5, BorderLayout.NORTH);
+		
+		JPanel addSS = new JPanel();
+		addSS.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addToTab(menuListSS, labelOpsCurrentTable);
+			}
+		});
+		addSS.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		addSS.setBackground(Color.LIGHT_GRAY);
+		catSS.add(addSS, BorderLayout.SOUTH);
+		addSS.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_6 = new JLabel("Add to Order");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		addSS.add(lblNewLabel_6, BorderLayout.NORTH);
+		
+		JPanel addApp = new JPanel();
+		addApp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addToTab(menuListApps, labelOpsCurrentTable);
+			}
+		});
+		addApp.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		addApp.setBackground(Color.LIGHT_GRAY);
+		catApps.add(addApp, BorderLayout.SOUTH);
+		addApp.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel = new JLabel("Add to Tab");
+		lblNewLabel.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		addApp.add(lblNewLabel, BorderLayout.CENTER);
+		
+	}
+	
+	public void addToTab(JList<String> list, JLabel labelOpsCurrentTable) {
+		String item = (String) list.getSelectedValue();
+		String currentTable = labelOpsCurrentTable.getText().replace("Table: ", "").trim();
+		System.out.println("Table: " + currentTable);				
+		System.out.println("Item to add: " + item);
+		ArrayList<String> currentTab = tabMap.get(currentTable);
+		if(currentTab == null) {
+			currentTab = new ArrayList<String>();
+			currentTab.add(item);
+			tabMap.put(currentTable, currentTab);
+		} else {
+			currentTab.add(item);
+		}
+		System.out.println("TabMap: " + tabMap);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -1286,11 +1391,14 @@ public class WaiterUI {
 			labelOpsStatusMsg.setText("Status: Occupied");			
 		}
 		
-		ArrayList<String> tab = getCurrentTab(table);
 		((DefaultListModel<String>)tabList.getModel()).removeAllElements();
-		if(tab == null) return;
-		for(String item : tab) {
-			 ((DefaultListModel<String>)tabList.getModel()).addElement(" - $05.00 : " + item);
+		
+		System.out.println("Selected: '" + selectedTable + "'");
+		System.out.println("TabMap: " + tabMap);
+		if(tabMap.get(selectedTable) == null) return;
+		System.out.println("Tab: '" + tabMap.get(selectedTable) + "'");
+		for(String item : tabMap.get(selectedTable)) {
+			 ((DefaultListModel<String>)tabList.getModel()).addElement(item);
 		}
 		
 	}
@@ -1304,26 +1412,7 @@ public class WaiterUI {
 	    } 
 	    return null;
 	}
-	
-	public ArrayList<String> getCurrentTab(JPanel table) {
-		String label = getTableLabel(table);
-		ArrayList<String> tab = new ArrayList<String>();
-		if(label == "1A") {
-			System.out.println("1A");
-			tab.add("Oysters");
-			tab.add("Coke");
-			tab.add("Quesadilla");
-		}
 
-		if(label == "1B") {
-			System.out.println("1B");
-			tab.add("Salad");
-			tab.add("Dr. Pepper");
-			tab.add("Cheeseburger");
-		}
-
-		return tab;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public void getMenuItems(JList listApps, JList listSS, JList listEN, JList listFAVS, JList listSW) {
